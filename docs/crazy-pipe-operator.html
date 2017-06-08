@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Ming Chen" />
+
+
+<title>Crazy pipe operator</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Machine Learning with R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R introduction
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="R-Intro-I.html">R Introduction I</a>
+    </li>
+    <li>
+      <a href="R-Intro-II.html">R Introduction II</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data manipulation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a></a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    My functions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a></a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    ML methods
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="divider"></li>
+    <li class="dropdown-header">Regression</li>
+    <li class="dropdown-header">Linear regression</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Classification</li>
+    <li class="dropdown-header">Logistic regression</li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Clustering</li>
+    <li class="dropdown-header">K means</li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/MingChen0919/machine-learning-with-r">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/mingchen0919">
+    <span class="fa fa-twitter"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Crazy pipe operator</h1>
+<h4 class="author"><em>Ming Chen</em></h4>
+<h4 class="date"><em>6/8/2017</em></h4>
+
+</div>
+
+
+<style>
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+</style>
+<div id="target-file-sam-file" class="section level3">
+<h3>Target file: sam file</h3>
+<pre class="unix"><code>SRR2426363.615  163 gi|254160123|ref|NC_012967.1|   3356120 10  71M1D8M1I125M23S    =   3356375 504 CTTGCACCCTCCGTATTACCGCGGCTGCTGGCACGGAGTTAGCCGGTGCTTCTTCTGCGGGTAACGTCAATTGCTGCGGTTATTAGCCACAACACCTTCCTCCCCGCTGAAAGTACTTTACAACCCGAAGGCCTTCTTCATACACGCGGCATGGCTGCATCAGGCTTGCGCCCATTGTGCAATATTCCCCACTGCTGCCTCCCGTCGTAGTCAGTACTGTGTCTGAGT    AAABBFF43AAAEGFGGGGGFGGFCGGFHHHGHHGGGG?GHHHHC?FC?G5GHGGGGHGF/EEHH?GGGCFHHHHGFGGGG?GBFGEF3?C?&lt;GE?BGGHHHH/E?CCD/DGFDGHHGHBGHGFD.&lt;A@C?.C&lt;&lt;0DGFFFHFFGEGF?D-AFGGGEEGGFF9FB?BBEA?D?.//9/9BFBFFFFFF/;BAFEFBBF.;9.9.A.;-99AB/;/9;/:99BBB//:9    XT:A:M  NM:i:13 SM:i:10 AM:i:10 XM:i:11 XO:i:2  XG:i:2  MD:Z:71^G0A2A0A0A7A1T0T0T1C0T0C111
+SRR2426363.698  89  gi|254160123|ref|NC_012967.1|   4015323 0   168M1I33M   =   4015323 0   TGGGTTGCAAAAGAAGTAGGTAGCTTAACCTTCGGGAGGGCGCTTACCACTTTGTGATTCATGACTGGGGTGAAGTCGTAACAAGGTAACCGTAGGGGAACCTGCGGTTGGATCACCTCCTTACCTTAAAGAAGCGTACTTTGCAGTGCTCACACAGATTGTCTGATGAAAAACGAGCAGTAAAACCTCTACAGGCTTGTAG  EA;0C00GFC:00C:/DGGCFD0D0DDC?GGCC.&lt;&lt;--/@@??1?11?1GCGDCDHFDFB@@1B&lt;?@FB12DCFAEF&gt;F11&lt;&gt;1DHE&gt;&gt;AEHFFGF1EF0EEE/&gt;/B1B1HG1E&gt;EFBFFFGFGFHHDGBEFAA/2GFGAEGDF1GG1GFB2ABGF1HGFCB1F2GGF0F0GEEAEDFG1DF1B1FABF3FFFAAC1?AAAA  XT:A:R  NM:i:2  SM:i:0  AM:i:0  X0:i:3  X1:i:0  XM:i:1  XO:i:1  XG:i:1  MD:Z:172T28 XA:Z:gi|254160123|ref|NC_012967.1|,-228028,168M1I33M,2;gi|254160123|ref|NC_012967.1|,+3355048,28M1I173M,2;
+SRR2426363.1034 163 gi|254160123|ref|NC_012967.1|   3912080 29  39M1I137M   =   3912459 618 CTCTTTAGGTATTCCTTCGAACAAGATGCAAGAATAGACAAAAATGACAGCCCTTCTACGAGTGATTAGCCTGGTCGTGATTAGCGTGGTGGTGATTATTATCCCACCGTGCGGGGCTGCACTTGGACGAGGAAAGGCTTAGAAATCAAGCCTTAACGAACTAAGACCCCCGCACCG   ABBBBFFBFFFFGGGGGGGCGGGHGHFFFFCHHGHHHHFHFFAFGHFFFGEAEHHHHHGFDEEHHHHFHHHGFGGHFEGHHHHGF0B????EEFHHGGGHHFGHHHHGGHHEE?EC?DGFBGFHHEFFCGG//CGC0CGEB11=1&gt;GG1&gt;GGBGFB0DC.-.F0;CFHEGCCGCA@9   XT:A:U  NM:i:4  SM:i:29 AM:i:29 X0:i:1  X1:i:0  XM:i:3  XO:i:1  XG:i:1  MD:Z:9C24A107G33</code></pre>
+<div class="figure">
+<img src="images/cigar.png" alt="CIGAR" />
+<p class="caption">CIGAR</p>
+</div>
+</div>
+<div id="goals" class="section level2">
+<h2>Goals</h2>
+<div id="positions-of-all-insertiondeletion" class="section level3">
+<h3>Positions of all insertion/deletion</h3>
+<pre class="r"><code>                Qname start_pos insert_1 insert_2 insert_3 insert_4
+1      SRR2426363.615   3356120  3356201       NA       NA       NA
+2      SRR2426363.698   4015323  4015492       NA       NA       NA
+3     SRR2426363.1034   3912080  3912120       NA       NA       NA
+4     SRR2426363.4217   4382662  4382826  4382838       NA       NA
+5     SRR2426363.4732    979022   979071       NA       NA       NA
+6     SRR2426363.6348   4017239  4017395       NA       NA       NA</code></pre>
+</div>
+<div id="data-manipulation-skills-with-plyrdplyr" class="section level3">
+<h3>Data manipulation skills with <strong>plyr/dplyr</strong></h3>
+<pre class="r"><code>#---  **ply(): a*ply, l*ply, d*ply
+#---  select(): focus on a subset of variables
+#---  filter(): focus on a subset of rows
+#---  mutate(): add new columns
+#---  arrange(): re-order the rows
+#---  colwise(): functional programming example
+#---  [[: subsetting
+#---  -&gt;: right assignment operator
+#---  -&gt;&gt;: assign through parents environments
+#---  %&gt;%
+#---  workflow</code></pre>
+<hr />
+<strong>Let’s do it!</strong>
+<hr />
+</div>
+</div>
+<div id="load-packages" class="section level2">
+<h2>Load packages</h2>
+<pre class="r"><code>p = c(&#39;plyr&#39;, &#39;dplyr&#39;, &#39;stringr&#39;)
+install.packages(p)
+
+library(plyr)
+library(dplyr)
+library(stringr)
+rm(list=ls())</code></pre>
+</div>
+<div id="get-data" class="section level2">
+<h2>Get data</h2>
+<div id="option-1-read-data-remotely" class="section level3">
+<h3>Option 1: read data remotely</h3>
+<pre class="r"><code>myData = readLines(&#39;https://raw.githubusercontent.com/MingChen0919/KBS_workshop_Michigan_2016/master/SRR2426363.mapped.sam&#39;)</code></pre>
+</div>
+<div id="option-2-download-data-and-then-read-data-locally" class="section level3">
+<h3>Option 2: download data and then read data locally</h3>
+<pre class="r"><code>curl -O https://raw.githubusercontent.com/MingChen0919/KBS_workshop_Michigan_2016/master/SRR2426363.mapped.sam
+myData = readLines(&#39;SRR2426363.mapped.sam&#39;)</code></pre>
+</div>
+<div id="do-everything-in-one-single-pipe-line." class="section level3">
+<h3>Do everything in one single pipe line.</h3>
+<ul>
+<li>Pipeline starts with your data</li>
+<li>Input -&gt; Output: No intermediate variables generated</li>
+<li>Pipeline is extensible</li>
+</ul>
+<pre class="r"><code>myData %&gt;% tail(-1) %&gt;% ## remove the first row because it contains field names
+  (function(x){
+    ## wrap the str_split_fixed() function so it returns a character
+    str_split_fixed_2 = function(string, pattern, n){
+      x = str_split_fixed(string, pattern, n)
+      return(as.character(x))
+    }
+    ldply(x, str_split_fixed_2, &#39;\t&#39;, 20)[, 1:11]
+  }) %&gt;% 
+  (function(x){
+    colnames(x) = c(&#39;QNAME&#39;, &#39;FLAG&#39;, &#39;RNAME&#39;, &#39;POS&#39;, &#39;MAPQ&#39;,
+                    &#39;CIGAR&#39;, &#39;RNEXT&#39;, &#39;PNEXT&#39;, &#39;TLEN&#39;, &#39;SEQ&#39;, &#39;QUAL&#39;)
+    rownames(x) = paste0(&#39;seq&#39;, 1:nrow(x))
+    return(x)
+  }) %&gt;% 
+  mutate(FLAG = as.numeric(FLAG),
+         POS = as.numeric(POS),
+         MAPQ   = as.numeric(MAPQ),
+         PNEXT  = as.numeric(PNEXT),
+         TLEN   = as.numeric(TLEN)) %&gt;%
+  (function(x){
+    filter(x, MAPQ &gt; 30 &amp; MAPQ &lt; 55) %&gt;%
+      select(QNAME, RNAME, POS, MAPQ, CIGAR) %&gt;% nrow() 
+    return(x)
+  }) %&gt;% 
+  (function(x){
+    arrange(x, MAPQ) %&gt;% 
+      select(QNAME, RNAME, POS, MAPQ, CIGAR) %&gt;% head() 
+    return(x)
+  }) %&gt;%
+  (function(x){
+    filter(x, MAPQ &gt; 30) %&gt;% 
+      select(QNAME, RNAME, POS, MAPQ, CIGAR) %&gt;%  
+      arrange(POS, MAPQ) %&gt;% head() 
+    return(x)
+  }) %&gt;% 
+  (function(x){
+    select(x, CIGAR) %&gt;% 
+      laply(grep, pattern=&#39;[I]&#39;) %&gt;% 
+      slice(.data = x) %&gt;%
+      (function(x){
+        x -&gt;&gt; df_with_Insertion
+        select(x, CIGAR) -&gt;&gt; CIGAR_with_Insertion
+        select(x, QNAME) -&gt;&gt; QNAME 
+        select(x, POS) -&gt;&gt; POS
+        return(select(x, CIGAR))
+      })
+  }) %&gt;% 
+  llply(str_split, &#39;I&#39;) %&gt;%
+  `[[`(&#39;CIGAR&#39;) %&gt;%
+  llply(head, -1) %&gt;%
+  llply(gsub, pattern=&#39;[A-Z]&#39;, replacement=&#39;+&#39;) %&gt;%
+  (function(x){
+    eval_string = function(var1) eval(parse(text=var1))  ## define a function
+    eval_string_plus = function(var2) laply(var2, eval_string) ## define another function
+    llply(x, eval_string_plus)
+  })  %&gt;% 
+  llply(cumsum) %&gt;%
+  (function(x){
+    maxN = max(lengths(x))
+    newX = vector(&#39;numeric&#39;, length = maxN)
+    ldply(x, `[`, 1:maxN)
+  }) %&gt;% 
+  (function(x){
+    `colnames&lt;-`(x, paste0(&#39;insert_&#39;, 1:ncol(x)))
+    ## return(x)
+  }) %&gt;%
+  colwise(.fun=`+`)(unlist(POS)) %&gt;%
+  mutate(Qname = unlist(QNAME), start_pos = unlist(POS)) %&gt;%
+  `[`(c(&#39;Qname&#39;, &#39;start_pos&#39;, &#39;insert_1&#39;, &#39;insert_2&#39;, &#39;insert_3&#39;, &#39;insert_4&#39;))</code></pre>
+<hr />
+Let’s break it down!
+<hr />
+<pre class="r"><code>##==== Step 1: split each line by tab and return a tabular data structure  ====
+myData %&gt;% tail(-1) %&gt;% ## remove the first row because it contains field names
+  (function(x){
+    ## wrap the str_split_fixed() function so it returns a character
+    str_split_fixed_2 = function(string, pattern, n){
+      x = str_split_fixed(string, pattern, n)
+      return(as.character(x))
+    }
+    ldply(x, str_split_fixed_2, &#39;\t&#39;, 20)[, 1:11]
+  }) %&gt;% </code></pre>
+<pre class="r"><code>##==== Step 2:  set column names =======
+  (function(x){
+    colnames(x) = c(&#39;QNAME&#39;, &#39;FLAG&#39;, &#39;RNAME&#39;, &#39;POS&#39;, &#39;MAPQ&#39;,
+                    &#39;CIGAR&#39;, &#39;RNEXT&#39;, &#39;PNEXT&#39;, &#39;TLEN&#39;, &#39;SEQ&#39;, &#39;QUAL&#39;)
+    rownames(x) = paste0(&#39;seq&#39;, 1:nrow(x))
+    return(x)
+  }) %&gt;% </code></pre>
+<pre class="r"><code>##==== Step:3 convert strings to numbers ====
+  mutate(FLAG = as.numeric(FLAG),
+         POS = as.numeric(POS),
+         MAPQ   = as.numeric(MAPQ),
+         PNEXT  = as.numeric(PNEXT),
+         TLEN   = as.numeric(TLEN)) %&gt;%</code></pre>
+<pre class="r"><code>##==== Exploring  ====
+  (function(x){
+    filter(x, MAPQ &gt; 30 &amp; MAPQ &lt; 55) %&gt;%
+      select(QNAME, RNAME, POS, MAPQ, CIGAR) %&gt;% nrow() 
+    return(x)
+  }) %&gt;% </code></pre>
+<pre class="r"><code>##==== Exploring ====
+  (function(x){
+    arrange(x, MAPQ) %&gt;% 
+      select(QNAME, RNAME, POS, MAPQ, CIGAR) %&gt;% head() 
+    return(x)
+  }) %&gt;%</code></pre>
+<pre class="r"><code>##==== Exploring ====
+  (function(x){
+    filter(x, MAPQ &gt; 30) %&gt;% 
+      select(QNAME, RNAME, POS, MAPQ, CIGAR) %&gt;%  
+      arrange(POS, MAPQ) %&gt;% head() 
+    return(x)
+  }) %&gt;% </code></pre>
+<pre class="r"><code>##==== Step 4: select rows that have insertions ====
+  (function(x){
+    select(x, CIGAR) %&gt;% 
+      laply(grep, pattern=&#39;[I]&#39;) %&gt;% 
+      slice(.data = x) %&gt;%
+      (function(x){
+        x -&gt;&gt; df_with_Insertion
+        select(x, CIGAR) -&gt;&gt; CIGAR_with_Insertion
+        select(x, QNAME) -&gt;&gt; QNAME 
+        select(x, POS) -&gt;&gt; POS
+        return(select(x, CIGAR))
+      })
+  }) %&gt;%</code></pre>
+<pre class="r"><code>##==== Step 5: split CIGAR by insertion letter &#39;I&#39;  ====
+  llply(str_split, &#39;I&#39;) %&gt;%</code></pre>
+<pre class="r"><code>##==== Step 6: Extract data from a nested list ====
+  `[[`(&#39;CIGAR&#39;) %&gt;%</code></pre>
+<pre class="r"><code>##==== Step 7: delete the last element ====
+  llply(head, -1) %&gt;%</code></pre>
+<pre class="r"><code>##==== Step 8: build calculation expression by replace remaining CIGAR letters with &#39;+&#39; ====
+  llply(gsub, pattern=&#39;[A-Z]&#39;, replacement=&#39;+&#39;) %&gt;%</code></pre>
+<pre class="r"><code>##==== Step 9: evalate the expression ====
+ (function(x){
+    eval_string = function(var1) eval(parse(text=var1))  ## define a function
+    eval_string_plus = function(var2) laply(var2, eval_string) ## define another function
+    llply(x, eval_string_plus)
+  })  %&gt;% </code></pre>
+<pre class="r"><code>##==== Step 10: get positions ====
+ llply(cumsum) %&gt;%
+  (function(x){
+    maxN = max(lengths(x))
+    newX = vector(&#39;numeric&#39;, length = maxN)
+    ldply(x, `[`, 1:maxN)
+  }) %&gt;% </code></pre>
+<pre class="r"><code>##==== Step 10: column names and row names ====
+  (function(x){
+    `colnames&lt;-`(x, paste0(&#39;insert_&#39;, 1:ncol(x)))
+    ## return(x)
+  }) %&gt;%</code></pre>
+<pre class="r"><code>##==== Step 11: add starting position =======
+colwise(.fun=`+`)(unlist(POS)) %&gt;%</code></pre>
+<pre class="r"><code>##==== Step 11: restructure the data frame to get final results ====
+  mutate(Qname = unlist(QNAME), start_pos = unlist(POS)) %&gt;%
+  `[`(c(&#39;Qname&#39;, &#39;start_pos&#39;, &#39;insert_1&#39;, &#39;insert_2&#39;, &#39;insert_3&#39;, &#39;insert_4&#39;))</code></pre>
+</div>
+</div>
+
+<center>Copyright &copy; 2017 Ming Chen. All rights reserved.</center>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

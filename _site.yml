@@ -8,16 +8,35 @@ navbar:
       icon: fa-home
       href: index.html
     - text: "R introduction"
-    - text: "R Introduction I"
-      href: R-Intro-I.html
-    - text: "R Introduction II"
-      href: R-Intro-II.html
-    - text: "Regression"
-      href:
-    - text: "Classification"
-      href:
-    - text: "Clustering"
-      href:
+      menu:
+      - text: "R Introduction I"
+        href: R-Intro-I.html
+      - text: "R Introduction II"
+        href: R-Intro-II.html
+    - text: "Data manipulation"
+      menu:
+        - text:
+          href:
+    - text: "My functions"
+      menu:
+        - text:
+          href:
+    - text: "ML methods"
+      menu:
+        - text: "-----------------"
+        - text: "Regression"
+        - text: "Linear regression"
+          href: 
+          
+        - text: "-----------------"
+        - text: "Classification"
+        - text: "Logistic regression"
+          href:
+          
+        - text: "-----------------"
+        - text: "Clustering"
+        - text: "K means"
+          href:
   right:
     - icon: fa-github
       href: https://github.com/MingChen0919/machine-learning-with-r

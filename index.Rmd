@@ -9,10 +9,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-<p><b>This website contains machine learning examples. I created this website mainly for recording what I have learned about applying machine learning to data analysis in R. It would be great if this is helpful to you. If you think your work is not properly cited here, please feel free to contact me (mingchen0919 AT gmail DOT com).</b><p>
+<p><b>This website contains machine learning examples implemented with R. I created this website mainly for recording what I have learned about applying machine learning to data analysis in R. It would be great if this is helpful to you. If you think your work is not properly cited here, please feel free to contact me (mingchen0919 AT gmail DOT com).</b><p>
 
 ## Content
 
-* **R Introduction**
+* **Miscellaneous R** 
+    * ***This section includes all kinds of fun stuff that I have developed, my teaching materials in workshops, or anything that don't belong to other categories.***
     * [R Introduction I](https://github.com/MingChen0919/machine-learning-with-r/R-Intro-I.Rmd)
     * [R Introduction II](https://github.com/MingChen0919/machine-learning-with-r/R-Intro-II.Rmd)
+    * [A giant pipeline example: use `%>%` operator to connect every sinle analysis step.](https://github.com/MingChen0919/machine-learning-with-r/crazy-pipe-operator.Rmd)
+* **Data Manipulation** (data manipulation skills and tricks)
+* **My functions** (functions that I have created for a partifular task)
+* **ML methods** (machine learning examples)
