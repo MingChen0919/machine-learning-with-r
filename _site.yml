@@ -13,6 +13,8 @@ navbar:
         href: R-Intro-I.html
       - text: "R Introduction II"
         href: R-Intro-II.html
+      - text: "Crazy pipe operator: %>%"
+        href: crazy-pipe-operator.html
     - text: "Data manipulation"
       menu:
         - text:
