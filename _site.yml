@@ -1,0 +1,27 @@
+name: "learning-apache-spark"
+output_dir: "docs"
+navbar:
+  title: "Machine Learning with R"
+  type: inverse
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "Data preparation"
+    - text: "Regression"
+      href:
+    - text: "Classification"
+      href:
+    - text: "Clustering"
+      href:
+  right:
+    - icon: fa-github
+      href: https://github.com/MingChen0919/machine-learning-with-R.git
+    - icon: fa-twitter
+      href: https://twitter.com/mingchen0919
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    include:
+      after_body: footer.html
