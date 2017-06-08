@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Ming Chen" />
+
+
+<title>R introduction: part II</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Machine Learning with R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown-header">R introduction</li>
+<li>
+  <a href="R-Intro-I.html">R Introduction I</a>
+</li>
+<li>
+  <a href="R-Intro-II.html">R Introduction II</a>
+</li>
+<li class="dropdown-header">Regression</li>
+<li class="dropdown-header">Classification</li>
+<li class="dropdown-header">Clustering</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/MingChen0919/machine-learning-with-r">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/mingchen0919">
+    <span class="fa fa-twitter"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">R introduction: part II</h1>
+<h4 class="author"><em>Ming Chen</em></h4>
+<h4 class="date"><em>6/1/2017</em></h4>
+
+</div>
+
+
+<div id="content" class="section level1">
+<h1>Content</h1>
+<ul>
+<li><a href="#functions">Functions</a></li>
+<li><a href="#pipes-and-pipe-operator">Pipes and pipe operator</a></li>
+<li><a href="#data-manipulation">Data manipulation</a></li>
+<li><a href="#the-split-apply-combine-strategy">The split-apply-combine strategy</a></li>
+</ul>
+</div>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
+<ul>
+<li>Define a function:</li>
+</ul>
+<pre class="r"><code>my_function = function(x, y, z, ...) {
+  ## some code
+  
+  ## some other code
+}</code></pre>
+<ul>
+<li>Call the function</li>
+</ul>
+<pre class="r"><code>my_function(x=VALUE, y=VALUE, z=VALUE)</code></pre>
+<ul>
+<li>Example: define a function to extract all columns between two column names from a data frame.</li>
+</ul>
+<pre class="r"><code>## load data
+pbsc = read.csv(&#39;PBSC-comma.txt&#39;, header = TRUE)
+
+## we can get multiple columns by position
+pbsc[2:4]
+
+## get columns by names
+get_columns_by_names = function(my_data_frame, first_name, last_name) {
+  df_column_names = colnames(my_data_frame)
+  first_position = which(df_column_names == first_name)
+  last_position = which(df_column_names == last_name)
+
+  my_data_frame[first_position:last_position]
+}
+
+## call the function
+get_columns_by_names(pbsc, &quot;A&quot;, &quot;C&quot;)
+get_columns_by_names(pbsc, &quot;C&quot;, &quot;A&quot;) # reversed</code></pre>
+<ul>
+<li>Anonymous functions
+<ul>
+<li>Functions that don’t have a name.</li>
+<li>Usually used to create a closed environment for running some code.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>function(x, y, z, ...) {
+  ## some code
+  
+  ## some other code
+}
+
+# will show you a use case in next section.</code></pre>
+</div>
+<div id="pipes-and-pipe-operator" class="section level1">
+<h1>Pipes and pipe operator</h1>
+<p>A pipe is a sequence of operations. It reflects the data and analysis flow.</p>
+<p>The pipe operator <code>%&gt;%</code> comes from the package <strong>magrittr</strong> by Stefan Milton Bache.</p>
+<pre class="r"><code># install.packages(&#39;magrittr&#39;)
+# install.packages(&#39;dplyr&#39;)
+library(dplyr)
+pbsc %&gt;% 
+  head() %&gt;% # the output from the previous operator will be the first argument in the next operator/function
+  `[`(2:4) # yes! &#39;[&#39; is a function.
+
+# the normal way to do this.
+`[`(pbsc, 2:4) 
+
+# use anonymous function in pipes
+workshop_comment = &#39;I really do not like the RNASeq workshop!&#39;
+gsub(&#39;do not&#39;, &#39;do&#39;, workshop_comment)
+
+workshop_comment %&gt;%
+  gsub(&#39;do not&#39;, &#39;do&#39;)  # this won&#39;t work because it takes workshop_comment as its first argument.
+
+
+workshop_comment %&gt;% 
+  (function(comment) {
+    gsub(&#39;do not&#39;, &#39;do&#39;, comment)
+  })</code></pre>
+</div>
+<div id="data-manipulation" class="section level1">
+<h1>Data manipulation</h1>
+<p>We are going to learn five important functions from the <strong>dplyr</strong> package. These five functions allows you to do a vast majority of data manipulation.</p>
+<ul>
+<li><code>filter()</code>: filter rows</li>
+<li><code>select()</code>: select variables by names</li>
+<li><code>arrange()</code>: reorder the rows</li>
+<li><code>mutate()</code>: create new variables by modifying existing variables</li>
+<li><code>summarise()</code>: collapse many values down to a single summary</li>
+</ul>
+<p>Here variables refer to data frame columns.</p>
+<div id="filter-rows-with-filter" class="section level2">
+<h2>Filter rows with <code>filter()</code></h2>
+<p><code>filter()</code> filters data frame by the logical values of expressions on columns. The first argument is a data frame. The second and subsequent arguments are expressions.</p>
+<pre class="r"><code># load the library first
+library(dplyr) 
+
+pbsc
+filter(pbsc, G &gt; 25)
+filter(pbsc, G &gt; 25, A &gt; 25) # it can takes multiple expressions
+filter(pbsc, X.Base %in% 2:5 ) # get values from base 2 to 5
+
+# what does the logical values of expressions mean?
+pbsc$G &gt; 25
+pbsc$G &gt;25 &amp; pbsc$A &gt; 25
+pbsc$X.Base %in% 2:5
+
+# filter NA rows
+pbsc_na = pbsc
+pbsc_na$phred = sample(c(20:60, rep(NA, 10)), nrow(pbsc_na), replace = TRUE)
+pbsc_na
+
+pbsc_na %&gt;%
+  filter(is.na(phred)) # select all rows that phred is NA
+
+pbsc_na %&gt;%
+  filter(!is.na(phred)) # select all rows that phred is not NA</code></pre>
+</div>
+<div id="select-columns-by-names-with-select" class="section level2">
+<h2>Select columns by names with <code>select()</code></h2>
+<pre class="r"><code># select columns by names
+select(pbsc, G, A)
+
+# select all columns between G and C
+select(pbsc, G:C)
+
+# select all columns except those from G to C
+select(pbsc, -(G:C))
+
+# more cool stuff
+iris
+
+select(iris, starts_with(&#39;Sepal&#39;)) # names begin with &#39;Sepal&#39;
+select(iris, ends_with(&#39;Length&#39;)) # names end with &#39;Length&#39;
+select(iris, contains(&#39;al&#39;)) # names that contain &#39;al&#39;
+select(iris, matches(&quot;\\.&quot;)) # select by a regular expression</code></pre>
+</div>
+<div id="reorder-rows-with-arrange" class="section level2">
+<h2>Reorder rows with <code>arrange()</code></h2>
+<pre class="r"><code>iris
+arrange(iris, Petal.Length)
+arrange(iris, Petal.Length, Petal.Width) # sort by multiple columns
+
+arrange(iris, desc(Petal.Length)) # descending order</code></pre>
+</div>
+<div id="create-new-variables-with-mutate" class="section level2">
+<h2>Create new variables with <code>mutate()</code></h2>
+<pre class="r"><code>mutate(pbsc, 
+       GC = G + C,
+       AT = A + G)
+
+
+# refer to columns that you&#39;ve just created
+mutate(pbsc,
+       GC = G + C,
+       AT = A + G,
+       GA_to_AT = GC/AT)
+
+# if you only want to keep the new variables, use transmutate().
+transmute(pbsc,
+          GC = G + C,
+          AT = A + G,
+          GA_to_AT = GC/AT)
+
+# a use case of combining multiple manipulating functions
+#  goal: select rows that are GC biased
+mutate(pbsc,
+       GC = G + C,
+       AT = A + G,
+       GC_bias = GC &gt; AT) %&gt;%
+  filter(GC_bias)</code></pre>
+</div>
+<div id="operating-on-subsets-of-a-data-frame-with-summarise" class="section level2">
+<h2>Operating on subsets of a data frame with <code>summarise()</code></h2>
+<p><code>summarise()</code> is similar to <code>mutate()</code>. You operate on existing variables to new variables. But the new variables have to be one single value.</p>
+<pre class="r"><code>summarise(pbsc, GC = G + C) # this won&#39;t work because the new variable has length &gt; 1
+
+summarise(pbsc, average_G = mean(G)) # calculate the average of G content.</code></pre>
+<p><code>summarise()</code> is usually used with <code>group_by()</code>. The <code>group_by()</code> converts a data frame to a grouped table. So operations can be performed on data frame by group.</p>
+<pre class="r"><code>mtcars
+
+grouped_mtcars = group_by(mtcars, cyl)
+grouped_mtcars # what does the data look like now?
+
+class(grouped_mtcars) # now it is a &#39;grouped_df&#39; object.
+
+summarise(grouped_mtcars, mean(mpg)) # calculate average mpg for each number of cyl.
+
+# we can group the data by multiple variables.
+group_by(mtcars, cyl, gear, carb) %&gt;%
+  summarise(mean(mpg), max(disp), min(wt))</code></pre>
+</div>
+</div>
+<div id="the-split-apply-combine-strategy" class="section level1">
+<h1>The split-apply-combine strategy</h1>
+<p>The split-apply-combine strategy is designed for parallel environment. You split your data into small pieces, apply a function to each pieces, and then combine the results to get your final results.</p>
+<p>The 12 key functions of package <strong>plyr</strong> that implement the split-apply-combine strategy:</p>
+<div class="figure">
+<img src="split-apply-combine.png" />
+
+</div>
+<div id="the-aply-functions" class="section level2">
+<h2>The <code>a*ply</code> functions</h2>
+<p>Three common ways to split an array. A matrix is a two dimensional array, and a vector is a one dimensional array. In most situation, you will apply the <code>a*ply</code> functions to a mtrix.</p>
+<p>There are three common ways to split a matrix: * split by row * split by column * split by row and column</p>
+<pre class="r"><code># install the plyr package if you haven&#39;t.
+# install.packages(&#39;plyr&#39;)
+library(plyr)</code></pre>
+<p>Example 1: calculate averages for each columns in data <code>mtcars</code> (split by column)</p>
+<pre class="r"><code># the data we use
+mtcars
+
+# split by column
+mtcars_matrix = as.matrix(mtcars) # convert data frame to matrix
+aaply(.data=mtcars_matrix, .margins=2, .fun=mean) # output is array
+adply(.data=mtcars_matrix, .margins=2, .fun=mean) # output is data frame
+alply(.data=mtcars_matrix, .margins=2, .fun=mean, .dims=TRUE) # output is lit
+a_ply(.data=mtcars_matrix, .margins=2, .fun=mean) # nothing returned</code></pre>
+<p>Example 2: convert absolute values to relative values (split by row).</p>
+<pre class="r"><code>mtcars_t = t(mtcars) # transpose the data
+head(mtcars_t) 
+
+# split the matrix by row, and then divide each element by the largest value from that row.
+aaply(.data=mtcars_t, .margins = 1, function(x){x/max(x)} )
+adply(.data=mtcars_t, .margins = 1, function(x){x/max(x)} )
+alply(.data=mtcars_t, .margins = 1, function(x){x/max(x)}, .dims = TRUE )</code></pre>
+<p>Example 3: split by row and column (apply function to each element in the matrix)</p>
+<pre class="r"><code>mtcars_relative = aaply(.data=mtcars_t, .margins = 1, function(x){x/max(x)} )
+mtcars_relative
+
+aaply(.data = mtcars_relative, .margins = c(1, 2), 
+      .fun = function(x) {ifelse(x&gt;0.5, yes = &#39;high&#39;, no = &#39;low&#39;)}) # define an anynomous function
+
+aaply(.data = mtcars_relative, .margins = c(1, 2),
+      .fun = ifelse, yes=&#39;high&#39;, no=&#39;low&#39;) # pass additional arguments to function</code></pre>
+</div>
+<div id="the-dply-functions" class="section level2">
+<h2>The <code>d*ply</code> functions</h2>
+<p>The <code>d*ply</code> functions split a data frame into <strong>smaller data frames</strong> by column(s) you select.</p>
+<pre class="r"><code># we still use the mtcars dataset
+mtcars</code></pre>
+<p>Example 1: calculate averages of all variables for each cyl.</p>
+<pre class="r"><code>ddply(.data = mtcars, .variables = &#39;cyl&#39;, colMeans)</code></pre>
+<p>Example 2: split data frame with mulitple variables</p>
+<pre class="r"><code>ddply(.data = mtcars, .variables = c(&#39;cyl&#39;, &#39;vs&#39;), colMeans)</code></pre>
+<p><strong>Important: the function you apply to each pieces have to recognize the data structure of the pieces. For example, the <code>d*ply</code> functions split data frame into smaller data frames. You have to provide a function that can operate on data frames.</strong></p>
+<pre class="r"><code>ddply(.data = mtcars, .variables = &#39;cyl&#39;, mean) # this will give you errors!
+
+ddply(.data = mtcars, .variables = .(cyl), summarise,
+      mean_mpg = mean(mpg),
+      sd_mpg = sd(mpg))
+
+# remember the combined use of group_by and summarise functions?
+mtcars_by_cyl = group_by(mtcars, cyl)
+summarise(mtcars_by_cyl,
+          mean_mpg = mean(mpg),
+          sd_mpg = sd(mpg))</code></pre>
+</div>
+<div id="the-lply-functions" class="section level2">
+<h2>The <code>l*ply</code> functions</h2>
+<p>The <code>l*ply</code> functions split <strong>lists or vectors</strong> into single elements, and then apply a function to each elements.</p>
+<p>Example 1: split a list.</p>
+<pre class="r"><code>mtcars_list = as.list(mtcars)
+mtcars_list
+
+ldply(.data = mtcars_list, .fun = mean)</code></pre>
+<p>Remember that a list can contain any types of data. What if we have a list of functions? Instead of splitting data, can we split a list of functions, and then apply each of these functions to our data?</p>
+<pre class="r"><code>my_functions = list(mean, sum, sd, max, min, length)
+my_functions
+
+laply(.data = my_functions, function(x) {x(mtcars$mpg)})
+
+# same as
+c( mean(mtcars$mpg),
+   sum(mtcars$mpg),
+   sd(mtcars$mpg),
+   max(mtcars$mpg),
+   min(mtcars$mpg),
+   length(mtcars$mpg) )</code></pre>
+</div>
+<div id="the-_ply-functions" class="section level2">
+<h2>The <code>*_ply</code> functions</h2>
+<ul>
+<li><code>a_ply()</code></li>
+<li><code>d_ply()</code></li>
+<li><code>l_ply()</code></li>
+</ul>
+<p>These functions split the data, apply a function to each pieces, but discard the results.</p>
+<p>Example: plot variable <strong>mpg</strong> against any other variables from the <strong>mtcars</strong> dataset.</p>
+<pre class="r"><code>mtcars_list = as.list(mtcars)
+
+# remember why we use &#39;[[&#39; instead of &#39;[&#39;?
+l_ply(mtcars_list, plot, y=mtcars_list[[&#39;mpg&#39;]], ylab=&#39;mpg&#39;)</code></pre>
+<p>But all the plots have the same label on the x axis. Can we label the x axis with the corresponding variable name?</p>
+<pre class="r"><code>list_names = names(mtcars_list)
+list_names
+
+l_ply(list_names, function(x){
+  plot(x=mtcars_list[[x]], y=mtcars_list[[&#39;mpg&#39;]], xlab = x, ylab = &#39;mpg&#39;)
+})</code></pre>
+<p><strong>Save plots into files</strong></p>
+<pre class="r"><code>l_ply(list_names, function(x){
+  png(filename = paste0(x, &#39;.png&#39;))
+  plot(x=mtcars_list[[x]], y=mtcars_list[[&#39;mpg&#39;]], xlab = x, ylab = &#39;mpg&#39;)
+  dev.off()
+})</code></pre>
+</div>
+<div id="save-the-results-from-_ply-functions-with---operator" class="section level2">
+<h2>Save the results from <code>*_ply</code> functions with <code>&lt;&lt;-</code> operator</h2>
+<p><code>&lt;&lt;-</code> operator is usually used in functions. It is similar to the <strong>assign</strong> operator <code>&lt;-</code> (or <code>=</code>). <code>&lt;&lt;-</code> operator assign value to a variable name. The difference is if the variable name does not exist in the current environment, it will search for the name in the parent environments until it finds the variable name.</p>
+<p>Example: do normality tests on each variable in <strong>mtcars</strong> and save the results</p>
+<pre class="r"><code># shapiro test
+shapiro.test(mtcars$mpg)
+# statistic W
+shapiro.test(mtcars$mpg)$statistic
+# p value
+shapiro.test(mtcars$mpg)$p.value
+
+single_res = c(shapiro.test(mtcars$mpg)$statistic,
+               shapiro.test(mtcars$mpg)$p.value)
+names(single_res) = c(&#39;W&#39;, &#39;p value&#39;)
+single_res
+
+# create a list 
+shapiro_results = list()
+
+ldply(list_names, function(x){
+  single_res = c(shapiro.test(mtcars[[x]])$statistic,
+               shapiro.test(mtcars[[x]])$p.value)
+  names(single_res) = c(&#39;W&#39;, &#39;p value&#39;)
+  shapiro_results[[x]] &lt;&lt;- single_res
+})
+
+# we can easily convert a list of elements equal in length to a data frame.
+as.data.frame(shapiro_results)</code></pre>
+</div>
+</div>
+
+<center>Copyright &copy; 2017 Ming Chen. All rights reserved.</center>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

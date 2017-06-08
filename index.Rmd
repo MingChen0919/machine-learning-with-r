@@ -1,4 +1,5 @@
 ---
+title: 'Machine Learning with R'
 output: html_document
 ---
 
@@ -6,3 +7,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+
+<p><b>This website contains machine learning examples. I created this website mainly for recording what I have learned about applying machine learning to data analysis in R. It would be great if this is helpful to you. If you think your work is not properly cited here, please feel free to contact me (mingchen0919 AT gmail DOT com).</b><p>
+
+## Content
+
+* **R Introduction**
+    * [R Introduction I](https://github.com/MingChen0919/machine-learning-with-r/R-Intro-I.Rmd)
+    * [R Introduction II](https://github.com/MingChen0919/machine-learning-with-r/R-Intro-II.Rmd)

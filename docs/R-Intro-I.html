@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Ming Chen" />
+
+
+<title>R introduction: part I</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Machine Learning with R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown-header">R introduction</li>
+<li>
+  <a href="R-Intro-I.html">R Introduction I</a>
+</li>
+<li>
+  <a href="R-Intro-II.html">R Introduction II</a>
+</li>
+<li class="dropdown-header">Regression</li>
+<li class="dropdown-header">Classification</li>
+<li class="dropdown-header">Clustering</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/MingChen0919/machine-learning-with-r">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/mingchen0919">
+    <span class="fa fa-twitter"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">R introduction: part I</h1>
+<h4 class="author"><em>Ming Chen</em></h4>
+<h4 class="date"><em>5/29/2017</em></h4>
+
+</div>
+
+
+<div id="content" class="section level1">
+<h1>Content</h1>
+<ul>
+<li><a href="#set-working-directory">Set working directory</a></li>
+<li><a href="#install-packages">Install packages</a></li>
+<li><a href="#get-some-help">Get some help</a></li>
+<li><a href="#data-and-data-structures">Data and data structures</a></li>
+<li><a href="#subsetting-operators">Subsetting operators</a></li>
+<li><a href="#factors">Factors</a></li>
+<li><a href="#write-data-into-files">Write data into files</a></li>
+</ul>
+</div>
+<div id="set-working-directory" class="section level1">
+<h1>Set working directory</h1>
+<pre class="r"><code>getwd()
+setwd(&#39;~/Desktop/rnaseq-workshop-2017&#39;)</code></pre>
+</div>
+<div id="install-packages" class="section level1">
+<h1>Install packages</h1>
+<ul>
+<li>Install package from CRAN</li>
+</ul>
+<pre class="r"><code>install.packages(&#39;ggplot2&#39;)
+library(&#39;ggplot2&#39;)
+require(&#39;ggplot2&#39;)</code></pre>
+<ul>
+<li>Install package from local source file
+<ul>
+<li>google ‘ggplot2 tar.gz’</li>
+<li><a href="https://cran.r-project.org/web/packages/ggplot2/index.html" class="uri">https://cran.r-project.org/web/packages/ggplot2/index.html</a></li>
+</ul></li>
+</ul>
+<pre class="r"><code>remove.packages(&#39;ggplot2&#39;)
+## restart R
+library(ggplot2)
+require(&#39;ggplot2&#39;)
+install.packages(&#39;data/ggplot2_2.2.1.tar.gz&#39;, repos = NULL)
+require(&#39;ggplot2&#39;)</code></pre>
+<ul>
+<li>Install bioconductor packages
+<ul>
+<li>google ‘deseq2 bioconductor’</li>
+<li><a href="https://www.bioconductor.org/packages/release/bioc/html/DESeq2.html" class="uri">https://www.bioconductor.org/packages/release/bioc/html/DESeq2.html</a></li>
+</ul></li>
+</ul>
+<pre class="r"><code>source(&quot;https://bioconductor.org/biocLite.R&quot;)
+biocLite(&quot;DESeq2&quot;)
+require(&#39;DESeq2&#39;)
+packageVersion(&#39;DESeq2&#39;)</code></pre>
+<ul>
+<li>Install package from github
+<ul>
+<li>go to <a href="https://www.bioconductor.org/packages/release/bioc/html/DESeq2.html" class="uri">https://www.bioconductor.org/packages/release/bioc/html/DESeq2.html</a></li>
+</ul></li>
+</ul>
+<pre class="r"><code>remove.packages(&#39;DESeq2&#39;)
+# restart R
+require(&#39;DESeq2&#39;)
+
+install.packages(&#39;devtools&#39;)
+require(&#39;devtools&#39;)
+install_github(&#39;Bioconductor-mirror/DESeq2&#39;)
+install_github(&#39;Bioconductor-mirror/DESeq2&#39;, ref = &#39;release-3.3&#39;)
+packageVersion(&#39;DESeq2&#39;)
+## read this page if this doesn&#39;t work for you:
+## https://stackoverflow.com/questions/29992066/rcpp-warning-directory-not-found-for-option-l-usr-local-cellar-gfortran-4-8/29993906#29993906</code></pre>
+<ul>
+<li>Install package from command line
+<ul>
+<li>create an R script named ‘install-r-packages.R’ and put the following content into this file.</li>
+<li>Open your terminal and run command: <code>RScript install-r-packages.R</code></li>
+</ul></li>
+</ul>
+<pre class="r"><code>pkgs = c(&#39;plyr&#39;, &#39;dplyr&#39;)
+install.packages(pkgs, repos = &quot;http://cran.us.r-project.org&quot;)</code></pre>
+</div>
+<div id="get-some-help" class="section level1">
+<h1>Get some help</h1>
+<ul>
+<li>The <code>?</code> function.</li>
+<li>The <code>help()</code> function: <code>help(package='DESeq2')</code></li>
+<li><strong>google</strong></li>
+</ul>
+</div>
+<div id="data-and-data-structures" class="section level1">
+<h1>Data and data structures</h1>
+<div id="bbuilt-in-datasets" class="section level2">
+<h2>Bbuilt-in datasets</h2>
+<pre class="r"><code>data(package=&#39;base&#39;)
+data(package=&#39;ggplot2&#39;)
+data(&#39;mpg&#39;, package=&#39;ggplot2&#39;)
+mpg</code></pre>
+</div>
+<div id="loading-data" class="section level2">
+<h2>loading data</h2>
+<p>Two most common data loading functions: <strong><em><code>read.csv()</code></em></strong> and <strong><em><code>read.table()</code></em></strong>.</p>
+<pre class="r"><code>?read.csv
+read.csv(&#39;data/data/PBSC-comma.txt&#39;)
+read.csv(&#39;data/PBSC-tab.txt&#39;, sep = &#39;\t&#39;)
+read.csv(&#39;data/PBSC-comma.txt&#39;, header=FALSE)</code></pre>
+<pre class="r"><code>read.table(&#39;data/PBSC-tab.txt&#39;, header=TRUE) # does the header argument work?
+read.table(&#39;data/PBSC-tab.txt&#39;, header=TRUE, comment.char = &#39;&#39;)
+
+# an example use case: load gtf file
+read.table(&#39;Arabidopsis_thaliana.h20.gtf&#39;, header=FALSE, sep=&#39;\t&#39;, 
+         comment.char = &#39;#&#39;)</code></pre>
+</div>
+<div id="variables" class="section level2">
+<h2>variables</h2>
+<ul>
+<li>Restrictions on variable names.
+<ul>
+<li>Technically amostly no restrictions on variable names</li>
+<li>But <strong>Most R programmers</strong>
+<ul>
+<li>starts with lower case letters</li>
+<li>separate words in names with underscores</li>
+<li>only use lower case letters, numbers and underscores</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="r"><code>x = 1:10
+x
+my_data = 1:10
+my_data
+my_data_2 = 1:5
+my_data_2
+
+assign(x = &#39;my_data&#39;, value = 3:8)
+my_data
+
+# some variable names that you should probably never use.
+assign(x = &#39;2017&#39;, value = 1:10)
+&#39;2017&#39;
+get(&#39;2017&#39;)
+
+assign(x = &#39;#&#39;, value = &#39;this is my value&#39;)
+get(&#39;#&#39;)</code></pre>
+<ul>
+<li>Assign the imported data to a variable.</li>
+</ul>
+<pre class="r"><code>pbsc = read.csv(&#39;data/PBSC-comma.txt&#39;, header = TRUE)
+pbsc</code></pre>
+</div>
+<div id="data-structures" class="section level2">
+<h2>data structures</h2>
+<ul>
+<li>Data frame
+<ul>
+<li>the most common data structure in R</li>
+<li>has two dimensions</li>
+</ul></li>
+</ul>
+<pre class="r"><code>is.data.frame(pbsc)
+
+str(pbsc)</code></pre>
+<ul>
+<li>Vectors
+<ul>
+<li>very basic data structure in R</li>
+<li>two flavors: atomic vectors and lists.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>x = 1:10
+x
+is.vector(x)
+
+# get a column from a data frame
+pbsc$G
+pbsc[, 1]
+# a column from a data frame is an atomic vectors
+is.vector(pbsc$G)
+is.data.frame(pbsc$G)
+
+# get a row from a data frame
+pbsc[1, ]
+# a row from a data frame is still a data frame.
+is.vector(pbsc[1, ])
+is.data.frame(pbsc[1, ])
+
+pbsc[1,]$G</code></pre>
+<ul>
+<li>atomic vectors vs. lists
+<ul>
+<li>atomic vectors are homogeneous. They can only have one type of values.</li>
+<li>lists are homogeneous or heterogenous.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>my_vector = c(1, 3, 5) # c() function combine values into a vector.
+my_vector
+
+my_v2 = c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)
+my_v2
+
+my_v3 = c(1, 2, &#39;b&#39;) # automatically convert numbers to strings.
+my_v3
+
+my_list = list(a=1:3, b=c(&#39;a&#39;, &#39;b&#39;, &#39;d&#39;))
+my_list
+my_list$a
+
+# any types of data can be an element of a list.
+my_l2 = list(a=1:3, b=c(&#39;a&#39;, &#39;b&#39;, &#39;d&#39;), df=pbsc)
+my_l2
+my_l2$df
+my_l2[1]</code></pre>
+<ul>
+<li>matrix
+<ul>
+<li>two dimentional</li>
+<li><strong>homogeneous</strong></li>
+</ul></li>
+</ul>
+<pre class="r"><code>my_matrix = matrix(1:12, nrow=3, ncol=4)
+my_matrix
+
+my_matrix_2 = matrix(letters[1:12], nrow=3, ncol=4)
+my_matrix_2
+
+# convert a heterogeneous data frame to a homogeneous matrix
+my_m3 = as.matrix(pbsc)
+my_m3
+
+# a column from a matrix is an vector
+my_m3[, 3]
+is.vector(my_m3[, 3])
+
+# a row from a matrix is still an vector
+my_m3[1, ]
+is.vector(my_m3[1, ])</code></pre>
+</div>
+<div id="subsetting-operators" class="section level2">
+<h2>Subsetting operators</h2>
+<p>There are three commonly used subsetting operators: <code>[[</code>, <code>$</code>, and <code>[</code></p>
+<ul>
+<li><code>$</code> is a shorthand for <code>[[</code>. It is useful when values are bound to character names.</li>
+<li><code>$</code> is invalid for atomic vectors.</li>
+<li><code>[</code> is similar to <code>[[</code>. The difference is that <code>[[</code> can only return a single value, while <code>[[</code> can return multiple values.</li>
+</ul>
+<pre class="r"><code>pbsc</code></pre>
+<ul>
+<li><strong><em>A data frame is also a list.</em></strong>
+<ul>
+<li><em>the columns in the data frame are elements in the list.</em></li>
+</ul></li>
+</ul>
+<pre class="r"><code>is.data.frame(pbsc)
+is.list(pbsc)</code></pre>
+<div id="subsetting-atomic-vectors" class="section level3">
+<h3>subsetting atomic vectors</h3>
+<pre class="r"><code>my_v1 = letters[1:10]
+my_v1
+
+# access single value
+my_v1[1]
+my_v1[[2]]
+
+# access multiple values
+my_v1[1:5]
+my_v1[c(1,5,9)]
+my_v1[c(1,3,3,3,1:10)] # get some elements repeatedly
+
+my_v1[[1:5]] # this won&#39;t work
+
+# access elements by names
+names(my_v1) = LETTERS[1:10]
+my_v1
+my_v1[&#39;A&#39;]
+my_v1[c(&#39;A&#39;,&#39;C&#39;,&#39;B&#39;)]
+
+my_v1$A # this won&#39;t work!</code></pre>
+<pre class="r"><code># A use case for accessing elements by names.
+
+my_sequence = sample(c(&#39;g&#39;, &#39;c&#39;, &#39;t&#39;, &#39;a&#39;), 20, replace = TRUE)
+my_sequence
+
+# how to convert lower case bases to upper case bases?
+my_template = c(&#39;G&#39;,&#39;C&#39;,&#39;T&#39;,&#39;A&#39;)
+names(my_template) = c(&#39;g&#39;, &#39;c&#39;, &#39;t&#39;, &#39;a&#39;)
+my_template
+
+my_template[my_sequence] # yeah!!
+# you will see how useful this is when you use the ggplot2 package for data visualization.</code></pre>
+</div>
+<div id="subsetting-data-frame" class="section level3">
+<h3>subsetting data frame</h3>
+<pre class="r"><code># acess a single cell from data frame.
+pbsc[1,2]
+pbsc[[1,2]] # this will work since we are accessing single value.
+
+# access multiple values
+pbsc[1:5, ] # rows from 1 to 5
+pbsc[, 1:2] # columns from 1 to 2
+pbsc[1:5, 1:2] # subsetting by rows and columns
+
+pbsc[[1:5, ]] # this won&#39;t work
+
+# get one column from the data frame and remain the data structure.
+pbsc[, 3]
+is.vector(pbsc[, 3])
+
+pbsc[, 3, drop=FALSE]
+is.vector(pbsc[, 3, drop=FALSE])
+is.data.frame(pbsc[, 3, drop=FALSE])
+
+# elements in the index don&#39;t have to be unique.
+pbsc[, c(1:4, 4, 4)]
+nrow(pbsc)
+pbsc[c(1:2, 2, 2, 3:55), ]
+
+# use $
+pbsc$A
+pbsc$X.Base</code></pre>
+</div>
+<div id="subsetting-list" class="section level3">
+<h3>subsetting list</h3>
+<pre class="r"><code>my_l2 = list(a=1:3, b=c(&#39;a&#39;, &#39;b&#39;, &#39;d&#39;), df=pbsc)
+my_l2
+
+# use $
+my_l2$a
+my_l2$df</code></pre>
+<pre class="r"><code># use index to access multiple elements.
+my_l2[1:3]
+my_l2[c(1,1,1,1,2,2,3)]
+
+my_l2[[1:3]] # this won&#39;t work!</code></pre>
+<p><strong>When <code>[</code> is applied to a list, it always returns a list. To access elements from an element within a list, we need the <code>[[</code> operator.</strong></p>
+<pre class="r"><code>my_l2[1]
+is.list(my_l2[1])
+
+# how to get the second value from element &#39;a&#39; in list &#39;my_l2&#39;
+my_l2[1][2] # this won&#39;t work!!
+my_l2[1][1][1][1][1][1][1][1][1][1][1][1][1][1][1][1]
+
+my_l2[[1]]
+is.list(my_l2[[1]])
+is.vector(my_l2[[1]])
+
+my_l2[[1]][2] # this will return the second value from element &#39;a&#39; in list &#39;my_l2&#39;
+my_l2[[3]]
+my_l2[[3]]$G</code></pre>
+</div>
+<div id="subsetting-matrix" class="section level3">
+<h3>subsetting matrix</h3>
+<pre class="r"><code>pbsc_matrix = as.matrix(pbsc)
+pbsc_matrix
+
+# access columns
+pbsc_matrix[, 2]
+pbsc_matrix[, 2:3]
+
+# access rows
+pbsc_matrix[1:2, ]
+
+# &#39;$&#39; operator does not apply to matrix.
+pbsc_matrix$G # this won&#39;t work!!
+
+# get single column or rows and remain the data structure.
+pbsc_matrix[1, ]
+pbsc_matrix[1, ,drop=FALSE]
+
+pbsc_matrix[ , 2]
+pbsc_matrix[ , 2,drop=FALSE]</code></pre>
+</div>
+</div>
+<div id="factors" class="section level2">
+<h2>Factors</h2>
+<p>When you import data from a file, R treat string columns as factors by default.</p>
+<pre class="r"><code>pbsc = read.csv(&#39;data/PBSC-comma.txt&#39;, header = TRUE)
+pbsc$X.Base
+
+# the stringsAsFactors argument
+pbsc_str = read.csv(&#39;data/PBSC-comma.txt&#39;, header = TRUE, stringsAsFactors = FALSE)
+pbsc_str$X.Base</code></pre>
+<p>Factors are used to store categorical data and are built on top of integer vectors.</p>
+<p>You need two components to define a factor:</p>
+<ul>
+<li>A set of predefined categories (or <strong>levels</strong>)</li>
+<li>A vector that contain values only from those categories.</li>
+</ul>
+<pre class="r"><code># a set of categories: c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)
+# a vector: c(&#39;b&#39;, &#39;c&#39;, &#39;b&#39;, &#39;a&#39;, &#39;b&#39;)
+factor_x1 = factor(levels = c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;), x = c(&#39;b&#39;, &#39;c&#39;, &#39;b&#39;, &#39;a&#39;, &#39;b&#39;))
+factor_x1
+
+# the vector does not have to contain all categories
+factor_x2 = factor(levels = c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;), x = c(&#39;b&#39;, &#39;b&#39;, &#39;b&#39;, &#39;b&#39;, &#39;b&#39;))
+factor_x2</code></pre>
+<p><strong>If you don’t provide the category set, it will use the unique values from the vector as the category set</strong></p>
+<pre class="r"><code>factor_x3 = factor(x = c(&#39;a&#39;, &#39;c&#39;, &#39;e&#39;, &#39;e&#39;, &#39;f&#39;, &#39;a&#39;))
+factor_x3</code></pre>
+<p><strong>How to understand that factors are built on top of integer vectors?</strong></p>
+<pre class="r"><code>factor_x1
+as.integer(factor_x1)
+
+factor_x3
+as.integer(factor_x3)
+
+# compare factors with string vectors
+str_v1 = c(&#39;a&#39;, &#39;c&#39;, &#39;e&#39;, &#39;e&#39;, &#39;f&#39;, &#39;a&#39;)
+as.integer(str_v1) 
+
+str_v2 = c(&#39;1&#39;, &#39;3&#39;, &#39;4&#39;, &#39;1&#39;) 
+as.integer(str_v2)</code></pre>
+<p><strong>How are factor elements mapped to integers?</strong> * The factor elements are mapped to an integer <strong>sequence that starts from 1</strong>, and the mapping order is <strong>determined by the order of factor levels</strong>.</p>
+<pre class="r"><code>factor_x1 = factor(levels = c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;), x = c(&#39;b&#39;, &#39;c&#39;, &#39;b&#39;, &#39;a&#39;, &#39;b&#39;))
+factor_x1
+as.integer(factor_x1)
+
+factor_x4 = factor(levels = c(&#39;c&#39;, &#39;b&#39;, &#39;a&#39;), x = c(&#39;b&#39;, &#39;c&#39;, &#39;b&#39;, &#39;a&#39;, &#39;b&#39;))
+factor_x4
+as.integer(factor_x4)
+as.integer(factor_x1)</code></pre>
+<p>Different level orders can result in different data analysis results due to the change in reference order. Next time when you do a linear regression analysis, try to reset the level orders for your categorical variables and see that happens.</p>
+</div>
+<div id="write-data-into-files" class="section level2">
+<h2>Write data into files</h2>
+<ul>
+<li><code>write.table()</code></li>
+<li><code>write.csv()</code></li>
+<li><code>sink()</code></li>
+</ul>
+<pre class="r"><code>mtcars
+
+write.table(x = mtcars, file = &#39;mtcars.txt&#39;, col.names = TRUE, row.names = TRUE)
+write.csv(x = mtcars, file = &#39;mtcars.csv&#39;, col.names = TRUE) # generates a message
+# let&#39;s open the help document for write.csv
+?write.csv
+
+write.csv(x = mtcars, file = &#39;mtcars.csv&#39;)
+
+# recomend using write.table
+# of course you can save the data into a csv file
+write.table(x = mtcars, file = &#39;mtcars.csv&#39;, col.names = TRUE, row.names = TRUE)
+write.table(x = mtcars, file = &#39;mtcars_2.csv&#39;, col.names = FALSE, row.names = FALSE)</code></pre>
+<p><code>sink()</code> diverts R output to a connection.</p>
+<pre class="r"><code># open a connection by providing a file path
+sink(file = &#39;my_linear_regression_analysis.txt&#39;)
+
+# all outputs that usually go to your screen will be saved into the file.
+lm(mpg~., data = mtcars) 
+summary(lm(mpg~., data = mtcars))
+
+# close the connection
+sink()</code></pre>
+</div>
+</div>
+
+<center>Copyright &copy; 2017 Ming Chen. All rights reserved.</center>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
