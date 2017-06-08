@@ -14,10 +14,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Content
 
 * **Miscellaneous R** 
-    * ***This section includes all kinds of fun stuff that I have developed, my teaching materials in workshops, or anything that don't belong to other categories.***
-    * [R Introduction I](https://github.com/MingChen0919/machine-learning-with-r/R-Intro-I.Rmd)
-    * [R Introduction II](https://github.com/MingChen0919/machine-learning-with-r/R-Intro-II.Rmd)
-    * [A giant pipeline example: use `%>%` operator to connect every sinle analysis step.](https://github.com/MingChen0919/machine-learning-with-r/crazy-pipe-operator.Rmd)
+    * *This section includes all kinds of fun stuff that I have developed, my teaching materials in workshops, or anything that don't belong to other categories.*
+    * [R Introduction I](https://github.com/MingChen0919/machine-learning-with-r/blob/master/R-Intro-I.Rmd)
+    * [R Introduction II](https://github.com/MingChen0919/machine-learning-with-r/blob/master/R-Intro-II.Rmd)
+    * [A giant pipeline example: use `%>%` operator to connect every sinle analysis step.](https://github.com/MingChen0919/machine-learning-with-r/blob/master/crazy-pipe-operator.Rmd)
 * **Data Manipulation** (data manipulation skills and tricks)
 * **My functions** (functions that I have created for a partifular task)
 * **ML methods** (machine learning examples)
