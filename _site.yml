@@ -27,8 +27,8 @@ navbar:
       menu:
         - text: "-----------------"
         - text: "Regression"
-        - text: "Linear regression"
-          href: 
+        - text: "Linear regression (with model selection)"
+          href: linear-regression.html
           
         - text: "-----------------"
         - text: "Classification"

@@ -1,0 +1,136 @@
+---
+title: "Linear Regression"
+author: "Ming Chen"
+date: "6/8/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ElemStatLearn)
+library(knitr)
+library(car)
+library(MASS)
+library(leaps)
+```
+
+
+## Data preparation
+
+Here we use a dataset from the `ElemStatLearn` package.
+
+```{r}
+data("prostate") 
+# take a look at the first few rows of the data
+prostate %>% head() %>% kable()
+
+training = filter(prostate, train==TRUE)[, 1:9]
+test = filter(prostate, train==FALSE)[, 1:9]
+
+# correlation matrix
+cor(training) %>% kable()
+```
+
+
+## Fit a linear regression model
+
+```{r}
+lr_training = lm(lpsa~., data = training)
+lr_training %>% summary()
+```
+
+## Variable selection
+
+Obviously, some variables have non-significant coefficients. We should exclude these variables from our final model. Several variable selection methods are introduced below.
+
+* Stepwise
+* Best subset
+* Lasso shrinkage
+
+### Stepwise
+
+The `step()` function can be used to perform a stepwise model selection. We specify a **lower** model which only includes the intercept item and a **upper** model which includes all variables. We use one of the two models as an initial model and search the best model between the lower and upper models in **forward**, **backward** or **both** directions.
+
+When the forward algorithm is selected, the lower model is used as the initial model. When the backward algorithm is selected, the upper model is used as the initial model. When the *both* is selected, either one of the two models can be used as the initial model.
+
+```{r}
+# the null model which does not include any predictors
+lr_null = lm(lpsa~1, data = training)
+# the full model which include all predictors
+lr_full = lm(lpsa~., data = training)
+
+# forward stepwise
+lr_forward = step(lr_null, scope = list(lower=lr_null, upper=lr_full), direction = 'forward')
+
+# backward stepwise
+lr_backward = step(lr_full, scope = list(lower=lr_null, upper=lr_full), direction = 'backward')
+
+# both stepwise
+lr_both = step(lr_null, scope = list(lower=lr_null, upper=lr_full), direction = 'both')
+```
+
+
+**Summary of model results**
+
+```{r}
+## forward
+lr_forward %>% summary()
+## backward
+lr_backward %>% summary()
+## both
+lr_both %>% summary()
+```
+
+
+From the results above we can see that some variables in the final models are NOT significant. How to explain this? Should we include these non-significant variables in our final model?
+
+**The `step()` selects the model based on the AIC, not the p-value. It uses the argument $k$ to set a threshold and determine if a variable should be include in the model or know. By default $k = 2$, which set up a threshold for the p value to `pchisq(2, 1, lower.tail = F)`, which is `r pchisq(2, 1, lower.tail = F)`. That means only variables with p-value < `r pchisq(2, 1, lower.tail = F)` will be excluded from the model. To set the p-value threshold to 0.05, we need to adjust the k argument value to `qchisq(0.05, 1, lower.tail = F)`, which is `r qchisq(0.05, 1, lower.tail = F)`.**
+
+Let's re-fit our models with $k = qchisq(0.05, 1, lower.tail = F)$.
+
+```{r message=FALSE}
+# forward stepwise
+lr_forward_new = step(lr_null, scope = list(lower=lr_null, upper=lr_full), 
+                  direction = 'forward', k = qchisq(0.05, 1, lower.tail = F))
+
+# backward stepwise
+lr_backward_new = step(lr_full, scope = list(lower=lr_null, upper=lr_full), 
+                   direction = 'backward', k = qchisq(0.05, 1, lower.tail = F))
+
+# both stepwise
+lr_both_new = step(lr_null, scope = list(lower=lr_null, upper=lr_full), 
+               direction = 'both', k = qchisq(0.05, 1, lower.tail = F))
+```
+
+```{r}
+lr_forward_new %>% summary()
+lr_backward_new %>% summary()
+lr_both_new %>% summary()
+```
+
+
+### Best subset
+
+The **best subset method** is an exhaustive method which search the whole model space. The best model is selected based on a criterion, such as 'Mellow's Cp', 'BIC', or adjusted $R^2$.
+
+The `regsubsets()` from the *leaps* package implements this algorithm.
+
+```{r}
+## best subset
+lr_best_subset = regsubsets(lpsa~., data = training)
+```
+
+We can plot the best models based on different criteria.
+
+```{r fig.width=9, fig.height=9}
+layout(mat = matrix(c(1,1,2,2,3,3,0,0), 4, byrow = FALSE))
+plot(lr_best_subset, scale = 'adjr2')
+plot(lr_best_subset, scale = 'bic')
+plot(lr_best_subset, scale = 'Cp')
+```
+
+We need to select the model with largest *adjr2*, smallest *Cp* and smallest *BIC*. However, most of time these three criteria won't give the same best model. When this occurs, we need to do a trade-off. The best model should have a high *adjr2* but low complexity (less variables).
+
+In this case, we can select the model `lpsa ~ 1 + lcavol + lweight + lbph + svi` as our best model. 
+
