@@ -9,9 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Ming Chen" />
 
 
-<title></title>
+<title>R Markdown Engine</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,6 +23,7 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -267,16 +269,39 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">R Markdown Engine</h1>
+<h4 class="author"><em>Ming Chen</em></h4>
+<h4 class="date"><em>6/17/2017</em></h4>
 
 </div>
 
 
-<div id="machine-learning-with-r" class="section level2">
-<h2>Machine Learning with R</h2>
-<p>
-<b>This website contains machine learning examples. I created this website mainly for recording what I have learned about applying machine learning to data analysis in R. It would be great if this is helpful to you. If you think your work is not properly cited here, please feel free to contact me (mingchen0919 AT gmail DOT com).</b>
-<p>
-<p>Website URL: <a href="https://mingchen0919.github.io/machine-learning-with-r/" class="uri">https://mingchen0919.github.io/machine-learning-with-r/</a></p>
+<div id="r-markdown-engine" class="section level2">
+<h2>R Markdown Engine</h2>
+<div id="specify-engine-path" class="section level3">
+<h3>Specify engine path</h3>
+<p>The <code>engine.path</code> argument can be used to set which python to use.</p>
+<pre><code>&#39;&#39;&#39;{python eval=TRUE, engine.path=&#39;/Users/mingchen/anaconda/bin/python&#39;}
+import sys
+
+for i in sys.path:
+  print(i)
+&#39;&#39;&#39;</code></pre>
+<p>To set a global engine path, we can specify the engine path in the <strong>setup chunk</strong>. The <code>engine.path</code> accepts a list, which allows setting path for multiple different engines.</p>
+<pre><code>&#39;&#39;&#39;{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE,
+                      engine.path = list(python = &#39;/Users/mingchen/anaconda/bin/python&#39;,
+                                         perl = &#39;/usr/local/bin/perl&#39;)))
+&#39;&#39;&#39;</code></pre>
+<pre><code>## 
+## /Users/mingchen/anaconda/lib/python36.zip
+## /Users/mingchen/anaconda/lib/python3.6
+## /Users/mingchen/anaconda/lib/python3.6/lib-dynload
+## /Users/mingchen/anaconda/lib/python3.6/site-packages
+## /Users/mingchen/anaconda/lib/python3.6/site-packages/Sphinx-1.5.6-py3.6.egg
+## /Users/mingchen/anaconda/lib/python3.6/site-packages/aeosa
+## /Users/mingchen/anaconda/lib/python3.6/site-packages/setuptools-27.2.0-py3.6.egg</code></pre>
+</div>
 </div>
 
 <center>Copyright &copy; 2017 Ming Chen. All rights reserved.</center>

@@ -1,0 +1,43 @@
+---
+title: "R Markdown Engine"
+author: "Ming Chen"
+date: "6/17/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown Engine
+
+### Specify engine path
+
+The `engine.path` argument can be used to set which python to use.
+
+```
+'''{python eval=TRUE, engine.path='/Users/mingchen/anaconda/bin/python'}
+import sys
+
+for i in sys.path:
+  print(i)
+'''
+```
+
+
+To set a global engine path, we can specify the engine path in the **setup chunk**. The `engine.path` accepts a list, which allows setting path for multiple different engines.
+
+```
+'''{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE,
+                      engine.path = list(python = '/Users/mingchen/anaconda/bin/python',
+                                         perl = '/usr/local/bin/perl')))
+'''
+```
+
+```{python echo=FALSE, engine.path='/Users/mingchen/anaconda/bin/python'}
+import sys
+
+for i in sys.path:
+  print(i)
+```

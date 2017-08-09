@@ -19,10 +19,10 @@ navbar:
       menu:
         - text:
           href:
-    - text: "My functions"
+    - text: "R markdown"
       menu:
-        - text:
-          href:
+        - text: "R markdown engine"
+          href: r-markdown-engine.html
     - text: "ML methods"
       menu:
         - text: "-----------------"
